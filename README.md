@@ -39,8 +39,8 @@ You can create the initial skeleton of repos in this directory using the
 
 You'll also need to obtain the [ringingliberty
 openssl-compat-bitcoin](http://linux.ringingliberty.com/bitcoin/) packages and
-place them into the repos that your `mock` configs point at. I'll hopefully
-make this easier shortly.
+place them into the repos that your `mock` configs point at. I've included a
+`build-openssl` script that will do this automatically.
 
 ## Building
 
@@ -56,4 +56,4 @@ the dogecoin packages:
 
 # Donations
 
-&ETH;OGE: *DAphNjETW19XbvkXfihxwJaUtjJoK8cLxX*
+&ETH;OGE: DAphNjETW19XbvkXfihxwJaUtjJoK8cLxX

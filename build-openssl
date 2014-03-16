@@ -1,0 +1,21 @@
+#!/bin/bash -ex
+
+test -d repo || ./createrepo
+
+pushd repo/f19/SRPMS
+wget http://linux.ringingliberty.com/bitcoin/f19/SRPMS/openssl-compat-bitcoin-1.0.1e-5ec.fc19.src.rpm
+popd
+pushd repo/f20/SRPMS
+wget http://linux.ringingliberty.com/bitcoin/f20/SRPMS/openssl-compat-bitcoin-1.0.1e-6ec.fc20.src.rpm
+popd
+
+for ARCH in i386 x86_64
+do
+    for DIST in f19 f20
+    do
+        mkdir -p repo/$DIST/$ARCH repo/$DIST/SRPMS/
+        mock --root=dogecoin-$DIST-$ARCH --rebuild repo/$DIST/SRPMS/openssl-compat-bitcoin-*.*.src.rpm --resultdir=rpms
+        mv rpms/*.rpm repo/$DIST/$ARCH/
+        createrepo repo/$DIST/$ARCH/
+    done
+done

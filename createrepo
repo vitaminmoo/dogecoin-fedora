@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for ARCH in x86_64 i386
+for ARCH in x86_64 i386 SRPMS
 do
     for DIST in f19 f20
     do
