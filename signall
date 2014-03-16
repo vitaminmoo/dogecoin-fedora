@@ -1,0 +1,2 @@
+#!/bin/bash
+find repo/ -name "*.rpm" -print0 | xargs -0 rpm --resign

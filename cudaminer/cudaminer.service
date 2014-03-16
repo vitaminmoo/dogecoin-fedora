@@ -1,0 +1,12 @@
+[Unit]
+Description=AltCoin mining daemon using CUDA for nVidia cards
+Documentation=file://usr/share/doc/cudaminer-2014.02.18/README.txt
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/cudaminer
+ExecStart=/usr/bin/cudaminer --syslog $OPTIONS
+User=cudaminer
+
+[Install]
+WantedBy=multi-user.target

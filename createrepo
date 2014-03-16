@@ -1,0 +1,10 @@
+#!/bin/bash
+
+for ARCH in x86_64 i386
+do
+    for DIST in f19 f20 el6
+    do
+        mkdir -p repo/$DIST/$ARCH
+        createrepo repo/$DIST/$ARCH
+    done
+done

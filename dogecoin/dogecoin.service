@@ -1,0 +1,12 @@
+[Unit]
+Description=Console-based Dogecoin daemon for headless servers
+Documentation=file://usr/share/doc/dogecoin-server-1.5.0/README.md
+After=syslog.target network.target
+
+[Service]
+ExecStart=/usr/sbin/dogecoind
+User=dogecoin
+Group=dogecoin
+
+[Install]
+WantedBy=multi-user.target

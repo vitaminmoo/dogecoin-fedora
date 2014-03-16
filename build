@@ -1,0 +1,38 @@
+#!/bin/bash -ex
+NAME=$1
+
+ARCHES='x86_64 i386'
+
+# no upstream cuda repo for i386
+if [ "$NAME" == 'cudaminer' ]
+then
+    ARCHES=${ARCHES/i386}
+fi
+
+spectool -g -S -C $1 $1.spec
+
+for ARCH in $ARCHES
+do
+    for DIST in f19 f20
+    do
+        case $DIST in
+            f19) RDIST=fc19
+            ;;
+            f20) RDIST=fc20
+            ;;
+        esac
+        case $ARCH in
+            i386) RARCH=i686
+            ;;
+            x86_64) RARCH=x86_64
+            ;;
+        esac
+
+        mkdir -p srpms rpms repo/$DIST/$ARCH
+        rm -rf srpms/* rpms/*
+        mock --root=dogecoin-$DIST-$ARCH --buildsrpm --spec=${NAME}.spec --sources=$NAME --resultdir=srpms
+        mock --root=dogecoin-$DIST-$ARCH --rebuild srpms/*.src.rpm --resultdir=rpms --no-cleanup-after
+        mv -i -f srpms/*.src.rpm repo/$DIST/SRPMS/
+        mv -i rpms/*.${RARCH}.rpm repo/$DIST/$ARCH/
+    done
+done

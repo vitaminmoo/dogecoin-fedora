@@ -1,0 +1,12 @@
+[Unit]
+Description=CPU mining daemon for cryptocurrencies
+Documentation=file://usr/share/doc/cpuminer-2.3.2/README
+
+[Service]
+Type=simple
+EnvironmentFile=-/etc/sysconfig/cpuminer
+ExecStart=/usr/bin/minerd --syslog $OPTIONS
+User=cpuminer
+
+[Install]
+WantedBy=multi-user.target

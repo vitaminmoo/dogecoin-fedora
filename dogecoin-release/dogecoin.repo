@@ -1,0 +1,15 @@
+[dogecoin]
+name=Dogecoin for Fedora - $basearch
+baseurl=http://obsoleet.org/resources/dogecoin/f$releasever/$basearch
+failovermethod=priority
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dogecoin
+
+[dogecoin-source]
+name=Dogecoin for Fedora - $basearch - Source
+baseurl=http://obsoleet.org/resources/dogecoin/f$releasever/SRPMS
+failovermethod=priority
+enabled=0
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-dogecoin
+gpgcheck=1

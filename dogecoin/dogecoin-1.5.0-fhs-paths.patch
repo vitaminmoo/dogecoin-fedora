@@ -1,0 +1,45 @@
+--- dogecoin-upstream/src/util.cpp	2014-01-26 23:42:54.478910850 -0800
++++ dogecoin-upstream/src/util.cpp.fhs-paths	2014-01-27 08:46:11.453427104 -0800
+@@ -1035,7 +1035,8 @@
+     // Windows < Vista: C:\Documents and Settings\Username\Application Data\Bitcoin
+     // Windows >= Vista: C:\Users\Username\AppData\Roaming\Bitcoin
+     // Mac: ~/Library/Application Support/Bitcoin
+-    // Unix: ~/.bitcoin
++    // Unix: /var/lib/dogecoin
++    // Unix GUI: ~/.bitcoin
+ #ifdef WIN32
+     // Windows
+     return GetSpecialFolderPath(CSIDL_APPDATA) / "Dogecoin";
+@@ -1053,7 +1054,11 @@
+     return pathRet / "Dogecoin";
+ #else
+     // Unix
++#ifdef QT_GUI
+     return pathRet / ".dogecoin";
++#else
++    return "/var/lib/dogecoin";
++#endif
+ #endif
+ #endif
+ }
+@@ -1095,7 +1100,11 @@
+ boost::filesystem::path GetConfigFile()
+ {
+     boost::filesystem::path pathConfigFile(GetArg("-conf", "dogecoin.conf"));
++#ifdef QT_GUI
+     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
++#else
++    if (!pathConfigFile.is_complete()) pathConfigFile = boost::filesystem::path("/etc/dogecoin") / pathConfigFile;
++#endif
+     return pathConfigFile;
+ }
+ 
+@@ -1129,7 +1138,7 @@
+ boost::filesystem::path GetPidFile()
+ {
+     boost::filesystem::path pathPidFile(GetArg("-pid", "dogecoind.pid"));
+-    if (!pathPidFile.is_complete()) pathPidFile = GetDataDir() / pathPidFile;
++    if (!pathPidFile.is_complete()) pathPidFile = boost::filesystem::path("/etc/dogeconi") / pathPidFile;
+     return pathPidFile;
+ }
+ 
